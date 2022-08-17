@@ -29,18 +29,9 @@
                     placeholder="Digite o email do usuario">
                 </div>
             </div>
-            <div class="field">
-                <label class="label has-text-left">Senha</label>
-                <div class="control">
-                    <input class="input" 
-                    type="password" 
-                    v-model="password"
-                    placeholder="Digite a senha do usuario">
-                </div>
-            </div>
             <div class="field is-grouped">
                 <div class="control">
-                    <button class="button is-success" @click="cadastrar">Cadastrar</button>
+                    <button class="button is-success" @click="editar">Editar</button>
                 </div>
                 <div class="control">
                     <button class="button is-link is-light" @click="limpar">Limpar</button>
@@ -58,11 +49,36 @@ export default {
     setup() {
         
     },
+    created() {
+        let token = localStorage.getItem("token");
+            //console.log(token);
+            let axiosConfig = {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    "Access-Control-Allow-Origin": "*",
+                } 
+            }
+            let url = 'http://localhost:8888/users/' + this.$route.params.id;
+            
+            axios.get(url, axiosConfig).then(res => {
+                console.log(res);
+                //this.success = 'Usuário Alterado com Sucesso';
+                this.id = res.data.id;
+                this.email = res.data.email;
+                this.nome = res.data.name;
+
+            }).catch(err => {
+                //console.log(err.response);
+                console.log(err)
+                this.error = err.data.err;
+            });  
+    },
     data() {
         return {
             id: -1,
             nome: '',
-            password: '',
             email: '',
             error: undefined,
             success: undefined
@@ -75,7 +91,7 @@ export default {
         fecharErro() {
             this.error = undefined;
         },
-        cadastrar() {
+        editar() {
             let token = localStorage.getItem("token");
             //console.log(token);
             let axiosConfig = {
@@ -86,19 +102,18 @@ export default {
                     "Access-Control-Allow-Origin": "*",
                 } 
             }
-
-            //console.log( this.nome + ' ' + this.password + ' ' + this.email);
-            axios.post('http://localhost:8888/users', {
+            let url = 'http://localhost:8888/users/' + this.id;
+            
+            axios.put(url, {
                     "name": this.nome, 
-                    "password" : this.password, 
                     "email": this.email
             },axiosConfig).then(res => {
                 console.log(res);
-                this.success = 'Cadastro realizado com sucesso';              
+                this.success = 'Cadastro Atualizado com Sucesso';              
             }).catch(err => {
                 //console.log(err.response);
                 console.log(err)
-                this.error = err.data.err;
+                this.error = err.response.data.err;
             });  
         },
         limpar() {

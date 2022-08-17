@@ -31,7 +31,9 @@ export default {
           return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(''));
         //let user = JSON.parse(jsonPayload);
-        this.user = JSON.parse(jsonPayload);
+        let user = JSON.parse(jsonPayload);
+        console.log(user);
+
     }
   },
   beforeMount(){

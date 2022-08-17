@@ -2,7 +2,7 @@
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/login">Login</router-link> |
-    <router-link to="/cadastro">Cadastro</router-link> | 
+    <router-link to="/admin/users/cadastro">Cadastro</router-link> | 
     <router-link to="/admin/users">Listar</router-link> |
     <router-link to="/about">About</router-link>
   </nav>

@@ -18,7 +18,7 @@
                     <td>{{u.email}}</td>
                     <td>{{ cargo(u.role) }}</td>
                     <td>
-                        <button class="button is-success">Editar</button> | 
+                        <button class="button is-success" @click="changePageEdicao(u.id)">Editar</button> |
                         <button class="button is-danger" @click="openModal(u.id)">Deletar</button>
                     </td>
                 </tr>
@@ -106,6 +106,12 @@ export default {
 
         }).catch(err => {
             console.log(err);
+        });
+      },
+      changePageEdicao(id) {
+        let editPath = '/admin/users/edit/' + id;
+        this.$router.push({
+            path: editPath
         });
       }
     } 

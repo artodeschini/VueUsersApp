@@ -37,7 +37,7 @@ const routes = [
   },
   {
     path: '/admin/users',
-    name: 'Users',
+    name: 'UsersList',
     component: ListUsers,
     beforeEnter: AdminAuth
   },
@@ -47,9 +47,16 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/cadastro',
+    path: '/admin/users/cadastro',
     name: 'cadastroUsuario',
-    component: CadastroUsuario
+    component: CadastroUsuario,
+    beforeEnter: AdminAuth
+  },
+  {
+    path: '/admin/users/edit/:id',
+    name: 'EdicaoUsuario',
+    component: EditcaoUsuario,
+    beforeEnter: AdminAuth
   },
   {
     path: '/about',
