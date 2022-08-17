@@ -1,45 +1,41 @@
 <template>
    <div class="container">
-        <h1>Listar Usuarios</h1>
+        <h1>Bem vindo</h1>
         <hr>
-        sjkdjalkjsdlskajlksajd
-        
+        <div>{{user.nome}}</div>
     </div>
 </template>
 
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
-import axios from 'axios';
+
 export default {
   name: 'HomeView',
   components: {
     
   },
-   data() {
+  data() {
         return {
             password: '',
-            email: ''
+            email: '',
+            user: {}
         }
-    },
-    methods: {
-        logar() {
-            //console.log( this.nome + ' ' + this.password + ' ' + this.email);
-            axios.post('http://localhost:8888/login', {
-                    "password" : this.password, 
-                    "email": this.email
-            }).then(res => {
-                console.log(res);
-                localStorage.setItem("token", res.data.token);              
-            }).catch(err => {
-                console.log(err.response);
-            });  
-        },
-        limpar() {
-            this.nome =  '';
-            this.password = '';
-            this.email = '';
-        }
+  },
+  methods: {
+    getInfo() {
+        let token = localStorage.getItem("token");
+        let base64Url = token.split('.')[1];
+        let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        //let user = JSON.parse(jsonPayload);
+        this.user = JSON.parse(jsonPayload);
     }
+  },
+  beforeMount(){
+    this.getInfo();
+ },
 }
 </script>

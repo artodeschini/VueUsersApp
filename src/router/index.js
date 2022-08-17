@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import CadastroUsuario from '../views/CadastroUsuario.vue';
 import LoginView from '../views/LoginView.vue';
 import ListUsers from '../views/ListUsers.vue';
+import EditcaoUsuario from '../views/EditcaoUsuario.vue';
 import axios from 'axios';
 
 function AdminAuth(to, from, next) {

@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h1>Cadastro de Usuários</h1>
+        <h1>Edicao de Usuário</h1>
         <hr>
         <div>
             <div v-if="error != undefined" class="notification is-danger">
@@ -54,12 +54,13 @@
 <script>
 import axios from 'axios';
 export default {
-    name: 'CadastroUsuario',
+    name: 'EdicaoUsuario',
     setup() {
         
     },
     data() {
         return {
+            id: -1,
             nome: '',
             password: '',
             email: '',
